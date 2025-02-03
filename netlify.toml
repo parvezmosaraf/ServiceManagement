@@ -1,0 +1,10 @@
+[build]
+  base = "/"
+  publish = "build"
+  functions = "netlify-functions"
+  command = "docker build -t flask-app . && docker run -p 5000:5000 flask-app"
+
+[build.environment]
+  FLASK_APP = "app.py"
+  FLASK_RUN_HOST = "0.0.0.0"
+  FLASK_RUN_PORT = "5000"

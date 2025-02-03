@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-6">
+        <h2 class="text-2xl font-bold mb-4">Welcome to Dashboard</h2>
+        <p class="text-lg mb-4">You are logged in as: <strong>{{ role }}</strong></p>
+        
+        {% if role == 'client' %}
+        <div class="space-y-4">
+            <form action="/book_service" method="POST" class="p-4 bg-white shadow rounded">
+                <label>Service Details:</label>
+                <input type="text" name="service_details" required class="border p-2 w-full">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-2 rounded">Book Service</button>
+            </form>
+            <form action="/upload_receipt" method="POST" class="p-4 bg-white shadow rounded">
+                <label>Receipt URL:</label>
+                <input type="text" name="receipt_url" required class="border p-2 w-full">
+                <button type="submit" class="bg-green-500 text-white px-4 py-2 mt-2 rounded">Upload Receipt</button>
+            </form>
+        </div>
+        {% endif %}
+
+        {% if role == 'agent' %}
+        <div class="space-y-4">
+            <p class="p-4 bg-white shadow rounded">Check your assigned tasks from the admin.</p>
+        </div>
+        {% endif %}
+
+        {% if role == 'admin' %}
+        <div class="space-y-4">
+            <form action="/assign_task" method="POST" class="p-4 bg-white shadow rounded">
+                <label>Agent ID:</label>
+                <input type="text" name="agent_id" required class="border p-2 w-full">
+                <label>Task Details:</label>
+                <input type="text" name="task_details" required class="border p-2 w-full">
+                <button type="submit" class="bg-red-500 text-white px-4 py-2 mt-2 rounded">Assign Task</button>
+            </form>
+        </div>
+        {% endif %}
+
+        <a href="/logout" class="mt-6 inline-block bg-gray-700 text-white px-4 py-2 rounded">Logout</a>
+    </div>
+</body>
+</html>
